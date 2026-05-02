@@ -7,10 +7,18 @@ var ALLOWED_RESOURCES = [
   { id: 'tool-002', name: '数据恢复精灵',      category: 'tool',  thumb: '🔍', price: 5.9,  size: '28.7 MB', file: 'tools/data-recovery.exe',       version: 'v5.0'   },
   { id: 'tool-003', name: '思维导图 XMind',   category: 'tool',  thumb: '🧠', price: 5.9,  size: '112 MB',  file: 'tools/xmind-2024.zip',           version: 'v24.01' },
   { id: 'tool-004', name: '视频压缩器 Pro',    category: 'tool',  thumb: '🎬', price: 5.9,  size: '68 MB',   file: 'tools/video-compressor.zip',     version: 'v2.8'   },
+  { id: 'tool-005', name: '本地视频去字幕',      category: 'tool',  thumb: '🎬', price: 5.9,  size: '86 MB',   file: 'tools/video-subtitle-remover.zip', version: 'v1.1.0' },
+  { id: 'tool-006', name: '闲鱼自动发货软件',    category: 'tool',  thumb: '💰', price: 5.9,  size: '56 MB',   file: 'tools/xianyu-auto-delivery.zip', version: 'v3.0'   },
   { id: 'game-001', name: '星际争霸：重制版',  category: 'game',  thumb: '🚀', price: 5.9,  size: '28 GB',   file: 'games/starcraft-remastered.zip',  version: '完整版' },
   { id: 'game-002', name: '我的世界·国际版',   category: 'game',  thumb: '⛏️', price: 5.9,  size: '1.2 GB',  file: 'games/minecraft-pocket.apk',     version: 'v1.21'  },
   { id: 'game-003', name: '骑马与砍杀2：领主', category: 'game',  thumb: '⚔️', price: 5.9,  size: '35 GB',   file: 'games/mount-and-blade2.zip',     version: 'v1.2.12'},
 ];
+
+// 资源下载链接映射（夸克网盘链接）
+var DOWNLOAD_LINKS = {
+  'tool-005': 'https://pan.quark.cn/s/ac9d4f123f1d',
+  'tool-006': 'https://pan.quark.cn/s/9749d29ca92f',
+};
 
 var VIP_PLANS = {
   monthly:  { label: '月卡会员', days: 30,        price: 9.9  },
@@ -263,6 +271,13 @@ async function handleDownload(request, user) {
   var canDownload = isVipActive(user) || owned.includes(resourceId);
   if (!canDownload) return jsonResponse({ error: '请先购买或开通会员' }, 403);
 
+  // 优先使用网盘链接（如果配置了的话）
+  var link = DOWNLOAD_LINKS[resourceId];
+  if (link) {
+    return jsonResponse({ success: true, type: 'link', name: meta.name, download_url: link });
+  }
+
+  // 否则从 R2 下载
   var bucket = R2_BUCKET;
   if (!bucket) return jsonResponse({ error: '存储服务未配置' }, 500);
 
