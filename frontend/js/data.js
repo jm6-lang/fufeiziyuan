@@ -44,6 +44,17 @@ const RESOURCES = {
       thumb: '🎬',
       file: 'tools/video-compressor.zip',
       version: 'v2.8'
+    },
+    {
+      id: 'tool-005',
+      name: 'AI视频去字幕工具',
+      category: 'tool',
+      desc: '基于 AI 的本地视频硬字幕去除工具，无损分辨率输出。支持自定义字幕位置精准去除、全视频自动识别清除所有文本水印，AI 智能填充去除区域，告别马赛克痕迹。完全本地运行，无需联网，隐私安全有保障。',
+      price: 5.9,
+      size: '1.8 GB',
+      thumb: '🤖',
+      file: 'tools/video-subtitle-remover.zip',
+      version: 'v1.1.0'
     }
   ],
   games: [
@@ -79,6 +90,17 @@ const RESOURCES = {
       thumb: '⚔️',
       file: 'games/mount-and-blade2.zip',
       version: 'v1.2.12'
+    },
+    {
+      id: 'tool-006',
+      name: '闲鱼自动发货软件',
+      category: 'tool',
+      desc: '闲鱼虚拟商品自动发货神器，无需挂机值守，24 小时全天自动发货。支持网盘链接、CDK、兑换券等多种虚拟物品自动发送，买家下单后系统自动推送资源。自带黑白名单、智能回复、自动同意/拒绝退款等功能，源头防止恶意差评，轻松实现躺赚收益。',
+      price: 5.9,
+      size: '86 MB',
+      thumb: '💰',
+      file: 'tools/xianyu-auto-delivery.zip',
+      version: 'v3.0'
     }
   ]
 };

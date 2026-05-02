@@ -83,13 +83,43 @@ async function startDownload() {
   const id = getResourceId();
   const token = getToken();
 
-  // 直接让浏览器下载（Worker 返回文件流）
-  const a = document.createElement('a');
-  a.href = `/api/download?id=${encodeURIComponent(id)}&token=${encodeURIComponent(token)}`;
-  a.download = '';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+  // 调用下载接口
+  try {
+    const res = await fetch(`/api/download?id=${encodeURIComponent(id)}&token=${encodeURIComponent(token)}`);
+    const data = await res.json();
+
+    if (data.success && data.type === 'link') {
+      // 网盘链接类型 → 显示链接让用户点击跳转
+      document.getElementById('detailPage').innerHTML = `
+        <div class="success-page">
+          <div class="success-icon">📥</div>
+          <div class="success-title">${data.name} - 下载链接</div>
+          <p class="success-desc" style="margin-bottom:20px">点击下方链接前往网盘下载</p>
+          <a href="${data.download_url}" target="_blank" rel="noopener" class="btn btn-primary btn-block" style="max-width:400px;margin:0 auto;font-size:1rem;padding:14px;text-decoration:none">
+            🔗 前往夸克网盘下载
+          </a>
+          <br>
+          <a href="user.html" style="color:#667eea;font-size:0.9rem">📦 查看我的资源</a>
+          <br><br>
+          <a href="index.html" style="color:#999;font-size:0.85rem">← 返回首页</a>
+        </div>
+      `;
+    } else {
+      // R2 文件流下载
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = '';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  } catch (err) {
+    alert('下载失败，请重试');
+    console.error(err);
+  }
 }
 
 // ========== 渲染详情页 ==========
