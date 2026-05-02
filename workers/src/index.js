@@ -15,19 +15,19 @@
  */
 
 const ALLOWED_RESOURCES = [
-  { id: 'tool-001', name: 'PDF大师 Pro',      category: 'tool',  thumb: '📄', price: 9.9,  size: '45.2 MB', file: 'tools/pdfmaster-pro.zip',       version: 'v3.2.1' },
-  { id: 'tool-002', name: '数据恢复精灵',      category: 'tool',  thumb: '🔍', price: 19.9, size: '28.7 MB', file: 'tools/data-recovery.exe',       version: 'v5.0'   },
-  { id: 'tool-003', name: '思维导图 XMind',   category: 'tool',  thumb: '🧠', price: 29.9, size: '112 MB',  file: 'tools/xmind-2024.zip',           version: 'v24.01' },
-  { id: 'tool-004', name: '视频压缩器 Pro',    category: 'tool',  thumb: '🎬', price: 14.9, size: '68 MB',   file: 'tools/video-compressor.zip',     version: 'v2.8'   },
-  { id: 'game-001', name: '星际争霸：重制版',  category: 'game',  thumb: '🚀', price: 49.9, size: '28 GB',   file: 'games/starcraft-remastered.zip',  version: '完整版' },
-  { id: 'game-002', name: '我的世界·国际版',   category: 'game',  thumb: '⛏️', price: 39.9, size: '1.2 GB',  file: 'games/minecraft-pocket.apk',     version: 'v1.21'  },
-  { id: 'game-003', name: '骑马与砍杀2：领主', category: 'game',  thumb: '⚔️', price: 69.9, size: '35 GB',   file: 'games/mount-and-blade2.zip',     version: 'v1.2.12'},
+  { id: 'tool-001', name: 'PDF大师 Pro',      category: 'tool',  thumb: '📄', price: 5.9,  size: '45.2 MB', file: 'tools/pdfmaster-pro.zip',       version: 'v3.2.1' },
+  { id: 'tool-002', name: '数据恢复精灵',      category: 'tool',  thumb: '🔍', price: 5.9,  size: '28.7 MB', file: 'tools/data-recovery.exe',       version: 'v5.0'   },
+  { id: 'tool-003', name: '思维导图 XMind',   category: 'tool',  thumb: '🧠', price: 5.9,  size: '112 MB',  file: 'tools/xmind-2024.zip',           version: 'v24.01' },
+  { id: 'tool-004', name: '视频压缩器 Pro',    category: 'tool',  thumb: '🎬', price: 5.9,  size: '68 MB',   file: 'tools/video-compressor.zip',     version: 'v2.8'   },
+  { id: 'game-001', name: '星际争霸：重制版',  category: 'game',  thumb: '🚀', price: 5.9,  size: '28 GB',   file: 'games/starcraft-remastered.zip',  version: '完整版' },
+  { id: 'game-002', name: '我的世界·国际版',   category: 'game',  thumb: '⛏️', price: 5.9,  size: '1.2 GB',  file: 'games/minecraft-pocket.apk',     version: 'v1.21'  },
+  { id: 'game-003', name: '骑马与砍杀2：领主', category: 'game',  thumb: '⚔️', price: 5.9,  size: '35 GB',   file: 'games/mount-and-blade2.zip',     version: 'v1.2.12'},
 ];
 
 const VIP_PLANS = {
   monthly:  { label: '月卡会员', days: 30,  price: 9.9  },
-  yearly:   { label: '年卡会员', days: 365, price: 59   },
-  lifetime: { label: '终身会员', days: 365 * 99, price: 199 },
+  yearly:   { label: '年卡会员', days: 365, price: 59.9 },
+  lifetime: { label: '终身会员', days: 365 * 99, price: 59.9 },
 };
 
 // ========== 工具函数 ==========

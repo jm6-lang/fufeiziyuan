@@ -207,7 +207,7 @@ async function loadOwnedResources() {
 // ========== 会员支付弹窗 ==========
 
 function openVipPay(plan) {
-  const prices = { monthly: 9.9, yearly: 59, lifetime: 199 };
+  const prices = { monthly: 9.9, yearly: 59.9, lifetime: 59.9 };
   const names = { monthly: '月卡会员', yearly: '年卡会员', lifetime: '终身会员' };
   document.getElementById('payModalTitle').textContent = '开通 ' + names[plan];
   document.getElementById('payModalDesc').textContent = `¥${prices[plan].toFixed(1)}，支付成功即开通 ${names[plan]}`;

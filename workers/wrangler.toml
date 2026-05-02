@@ -7,7 +7,7 @@ compatibility_date = "2024-01-01"
 # 把右侧显示的 ID 填到 id 后面（格式：xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx）
 [[kv_namespaces]]
 binding = "USERS_KV"
-id = "YOUR_KV_NAMESPACE_ID_HERE"
+id = "a577e0ad22df49e69e0b65285f45c3e6"
 
 # R2 Bucket：存储资源文件
 [[r2_buckets]]
