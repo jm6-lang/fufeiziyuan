@@ -1,0 +1,45 @@
+# Cloudflare Workers + Pages 项目配置
+# wrangler.toml
+
+name = "paid-download-worker"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+# 免费的 KV 命名空间（可选，用于存储购买记录）
+#[[kv_namespaces]]
+#binding = "PURCHASES"
+#id = "your-kv-namespace-id"
+
+# R2 存储桶绑定
+# 创建 R2 bucket 后填入:
+#   1. 在 Cloudflare Dashboard → R2 → 创建 Bucket（例如 "paid-resources"）
+#   2. 把 Bucket 名称填到 binding 后面
+#   3. 把右侧显示的 ID 填到 id 后面（格式：xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx）
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "paid-resources"
+
+# ========== 生产环境变量（部署时设置）==========
+# 不要把 secret 写死在代码里！
+
+[vars]
+# DOWNLOAD_SECRET 在生产环境通过 `wrangler secret put DOWNLOAD_SECRET` 设置
+# 这里仅供本地开发使用
+DOWNLOAD_SECRET = "dev-secret-do-not-use-in-production"
+
+# 微信支付配置
+# WXPAY_APPID = "your-app-id"
+# WXPAY_MCHID = "your-merchant-id"
+# WXPAY_APIKEY = "your-api-key-v3"
+# 同样通过 `wrangler secret put` 设置
+
+# 支付宝配置
+# ALIPAY_APPID = "your-app-id"
+# ALIPAY_PRIVATE_KEY = "your-private-key"
+# ALIPAY_PUBLIC_KEY = "alipay-public-key"
+
+# ==========================================
+
+# 站点部署（绑定到 Cloudflare Pages）
+# pages_project = "paid-download-site"
+# 启用后会部署成 pages-worker（边缘函数），而非独立 worker

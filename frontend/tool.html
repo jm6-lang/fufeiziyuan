@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>工具板块 - 资源下载站</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <div class="logo">🎯 资源下载站</div>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="tool.html" class="active">工具板块</a></li>
+        <li><a href="game.html">精品游戏</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="section-header">
+    <div class="container">
+      <h1>🔧 工具板块</h1>
+      <p>精选实用工具，提升效率</p>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="resource-list" id="resourceList">
+      <!-- 由 JS 动态渲染 -->
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2026 资源下载站 · 基于 Cloudflare Pages + Workers 部署</p>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    renderList('tools', 'resourceList');
+  </script>
+</body>
+</html>

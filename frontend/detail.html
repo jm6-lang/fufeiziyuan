@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">资源详情 - 资源下载站</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">🎯 资源下载站</a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="tool.html">工具板块</a></li>
+        <li><a href="game.html">精品游戏</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="detail-page" id="detailPage">
+    <!-- JS 渲染 -->
+  </div>
+
+  <footer class="footer">
+    <p>© 2026 资源下载站 · 基于 Cloudflare Pages + Workers 部署</p>
+  </footer>
+
+  <!-- 支付弹窗 -->
+  <div class="modal-overlay" id="payModal">
+    <div class="modal-box">
+      <h3 id="modalTitle">扫码支付</h3>
+      <p id="modalDesc">支付成功后即可获取下载链接</p>
+      <div class="pay-methods">
+        <button class="pay-btn active" data-method="wechat" onclick="selectPay('wechat')">💳 微信</button>
+        <button class="pay-btn" data-method="alipay" onclick="selectPay('alipay')">📱 支付宝</button>
+      </div>
+      <div class="qr-code" id="qrDisplay">💳</div>
+      <p class="modal-note">← 选择支付方式显示收款码</p>
+      <button class="btn btn-primary btn-block" onclick="simulatePaid()" style="margin-top:16px">我已支付（模拟）</button>
+      <div class="modal-close" onclick="closeModal()">取消</div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/detail.js"></script>
+</body>
+</html>
