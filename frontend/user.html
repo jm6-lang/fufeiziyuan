@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="pageTitle">资源详情 - 资源下载站</title>
+  <title>用户中心 - 资源下载站</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <nav class="navbar">
     <div class="container nav-inner">
-      <a href="index.html" class="logo">🎯 资源下载站</a>
+      <div class="logo">🎯 资源下载站</div>
       <ul class="nav-links">
         <li><a href="index.html">首页</a></li>
         <li><a href="tool.html">工具板块</a></li>
@@ -19,15 +19,15 @@
     </div>
   </nav>
 
-  <div class="detail-page" id="detailPage">
+  <div class="container" style="max-width:700px;margin:40px auto;padding:0 20px" id="userContent">
     <!-- JS 渲染 -->
   </div>
 
-  <!-- 资源支付弹窗 -->
+  <!-- VIP 支付弹窗 -->
   <div class="modal-overlay" id="payModal">
     <div class="modal-box">
-      <h3 id="payModalTitle">扫码支付</h3>
-      <p id="payModalDesc">支付成功后即可获取下载链接</p>
+      <h3 id="payModalTitle">开通会员</h3>
+      <p id="payModalDesc">支付成功后立即开通</p>
       <div style="font-size:1.6rem;font-weight:700;color:#e84118;margin-bottom:16px" id="payModalAmount"></div>
       <div class="pay-methods">
         <button class="pay-btn active" data-method="wechat" onclick="selectPay('wechat')">💳 微信</button>
@@ -35,13 +35,15 @@
       </div>
       <div class="qr-code" id="qrDisplay">💳</div>
       <p class="modal-note">← 选择支付方式显示收款码</p>
-      <button class="btn btn-primary btn-block" onclick="simulatePaid()" style="margin-top:16px">我已支付（模拟）</button>
+      <button class="btn btn-primary btn-block" onclick="simulateVipPaid()" style="margin-top:16px">我已支付（模拟）</button>
       <div class="modal-close" onclick="closeModal()">取消</div>
     </div>
   </div>
 
-  <script src="js/data.js"></script>
   <script src="js/auth.js"></script>
-  <script src="js/detail.js"></script>
+  <script>
+    renderUserCenter();
+    updateNavUser();
+  </script>
 </body>
 </html>

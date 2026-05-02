@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录 / 注册 - 资源下载站</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <div class="logo">🎯 资源下载站</div>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="tool.html">工具板块</a></li>
+        <li><a href="game.html">精品游戏</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container" style="max-width:420px;margin:60px auto;padding:0 20px">
+    <div class="detail-card">
+      <h2 style="text-align:center;margin-bottom:24px;font-size:1.6rem" id="formTitle">登录</h2>
+
+      <div id="formError" style="background:#fff0f0;color:#e84118;padding:12px;border-radius:8px;margin-bottom:16px;display:none;font-size:0.9rem;text-align:center"></div>
+
+      <div style="display:flex;gap:8px;margin-bottom:20px">
+        <button class="btn btn-primary" id="tabLogin" onclick="switchTab('login')" style="flex:1;opacity:1">登录</button>
+        <button class="btn" id="tabRegister" onclick="switchTab('register')" style="flex:1;background:#f0f0f0;color:#333;opacity:0.7">注册</button>
+      </div>
+
+      <!-- 登录表单 -->
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div style="margin-bottom:16px">
+          <label style="font-size:0.88rem;color:#555;display:block;margin-bottom:6px">用户名 / 邮箱</label>
+          <input type="text" name="username" required placeholder="请输入用户名或邮箱"
+            style="width:100%;padding:12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:0.95rem;outline:none;transition:border-color 0.2s"
+            onfocus="this.style.borderColor='#667eea'" onblur="this.style.borderColor='#e0e0e0'">
+        </div>
+        <div style="margin-bottom:16px">
+          <label style="font-size:0.88rem;color:#555;display:block;margin-bottom:6px">密码</label>
+          <input type="password" name="password" required placeholder="请输入密码"
+            style="width:100%;padding:12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:0.95rem;outline:none;transition:border-color 0.2s"
+            onfocus="this.style.borderColor='#667eea'" onblur="this.style.borderColor='#e0e0e0'">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" style="font-size:1rem;padding:13px;margin-top:4px">登 录</button>
+      </form>
+
+      <!-- 注册表单 -->
+      <form id="registerForm" style="display:none" onsubmit="handleRegister(event)">
+        <div style="margin-bottom:16px">
+          <label style="font-size:0.88rem;color:#555;display:block;margin-bottom:6px">用户名</label>
+          <input type="text" name="username" required placeholder="3-20位字母或数字" minlength="3" maxlength="20"
+            style="width:100%;padding:12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:0.95rem;outline:none"
+            onfocus="this.style.borderColor='#667eea'" onblur="this.style.borderColor='#e0e0e0'">
+        </div>
+        <div style="margin-bottom:16px">
+          <label style="font-size:0.88rem;color:#555;display:block;margin-bottom:6px">邮箱</label>
+          <input type="email" name="email" required placeholder="用于找回密码"
+            style="width:100%;padding:12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:0.95rem;outline:none"
+            onfocus="this.style.borderColor='#667eea'" onblur="this.style.borderColor='#e0e0e0'">
+        </div>
+        <div style="margin-bottom:16px">
+          <label style="font-size:0.88rem;color:#555;display:block;margin-bottom:6px">密码</label>
+          <input type="password" name="password" required placeholder="至少6位" minlength="6"
+            style="width:100%;padding:12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:0.95rem;outline:none"
+            onfocus="this.style.borderColor='#667eea'" onblur="this.style.borderColor='#e0e0e0'">
+        </div>
+        <div style="margin-bottom:16px">
+          <label style="font-size:0.88rem;color:#555;display:block;margin-bottom:6px">确认密码</label>
+          <input type="password" name="confirmPassword" required placeholder="再次输入密码"
+            style="width:100%;padding:12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:0.95rem;outline:none"
+            onfocus="this.style.borderColor='#667eea'" onblur="this.style.borderColor='#e0e0e0'">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" style="font-size:1rem;padding:13px;margin-top:4px">注 册</button>
+      </form>
+
+      <div style="text-align:center;margin-top:16px">
+        <a href="user.html" style="color:#667eea;font-size:0.88rem">← 返回用户中心</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script>
+    function switchTab(tab) {
+      const isLogin = tab === 'login';
+      document.getElementById('formTitle').textContent = isLogin ? '登录' : '注册';
+      document.getElementById('loginForm').style.display = isLogin ? 'block' : 'none';
+      document.getElementById('registerForm').style.display = isLogin ? 'none' : 'block';
+      document.getElementById('tabLogin').style.opacity = isLogin ? '1' : '0.6';
+      document.getElementById('tabRegister').style.opacity = isLogin ? '0.6' : '1';
+      document.getElementById('tabLogin').className = isLogin ? 'btn btn-primary' : 'btn';
+      document.getElementById('tabRegister').className = isLogin ? 'btn' : 'btn btn-primary';
+      document.getElementById('formError').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
