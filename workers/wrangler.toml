@@ -1,6 +1,7 @@
 name = "paid-download-worker"
 main = "src/index.js"
 compatibility_date = "2024-01-01"
+account_id = "6b586839c0c2e5b91d6f8e617e70542b"
 
 # KV 命名空间：用户数据、Session token、已购资源
 # 创建方式：Cloudflare Dashboard → Workers & Pages → KV → 创建命名空间
