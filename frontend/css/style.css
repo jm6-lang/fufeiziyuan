@@ -86,9 +86,24 @@ ul { list-style: none; }
 /* ===== Footer ===== */
 .footer { text-align: center; padding: 24px; color: #aaa; font-size: 0.85rem; border-top: 1px solid #eee; margin-top: 40px; }
 
+/* ===== 会员定价卡片（首页） ===== */
+.section-title { font-size: 1.6rem; font-weight: 700; text-align: center; margin-bottom: 32px; color: #1a1a2e; }
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 900px; margin: 0 auto; }
+.pricing-card { background: #fff; border-radius: 16px; padding: 30px 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center; position: relative; transition: transform 0.2s, box-shadow 0.2s; }
+.pricing-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+.pricing-card.pricing-popular { border: 2px solid #667eea; }
+.pricing-card.pricing-hot { border: 2px solid #e84118; }
+.pricing-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #667eea; color: #fff; font-size: 0.72rem; padding: 3px 14px; border-radius: 12px; font-weight: 600; }
+.pricing-name { font-size: 1rem; color: #888; margin-bottom: 12px; }
+.pricing-price { font-size: 2.2rem; font-weight: 700; color: #e84118; margin-bottom: 6px; }
+.pricing-price span { font-size: 0.85rem; color: #aaa; font-weight: 400; }
+.pricing-features { list-style: none; padding: 16px 0; text-align: left; }
+.pricing-features li { padding: 6px 0; font-size: 0.88rem; color: #555; }
+
 /* ===== 响应式 ===== */
 @media (max-width: 768px) {
   .category-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
   .nav-links { gap: 18px; }
   .nav-links a { font-size: 0.88rem; }
   .detail-info { flex-direction: column; gap: 12px; }

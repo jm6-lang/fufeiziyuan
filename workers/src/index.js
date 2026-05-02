@@ -1,6 +1,5 @@
 /**
- * 付费资源下载站 - Cloudflare Worker
- * 付费资源下载站 - Cloudflare Worker（Legacy 格式，兼容 API 直传）
+ * 付费资源下载站 - Cloudflare Worker（Legacy 格式）
  */
 
 var ALLOWED_RESOURCES = [
@@ -14,8 +13,7 @@ var ALLOWED_RESOURCES = [
 ];
 
 var VIP_PLANS = {
-  monthly:  { label: '月卡会员', days: 30,  price: 9.9  },
-  yearly:   { label: '年卡会员', days: 365, price: 59.9 },
+  monthly:  { label: '月卡会员', days: 30,        price: 9.9  },
   lifetime: { label: '终身会员', days: 365 * 99, price: 59.9 },
 };
 
@@ -74,24 +72,19 @@ function getAuthUser(request) {
   return token;
 }
 
-var KV, R2_BUCKET;
-
 async function getUserFromToken(request) {
   var token = getAuthUser(request);
   if (!token) return null;
-  var username = await KV.get(kvTokenKey(token));
+  var username = await USERS_KV.get(kvTokenKey(token));
   if (!username) return null;
-  var raw = await KV.get(kvUserKey(username));
+  var raw = await USERS_KV.get(kvUserKey(username));
   if (!raw) return null;
   return JSON.parse(raw);
 }
 
 // ========== fetch 入口 ==========
 
-async function handleRequest(request, env) {
-  KV = env.USERS_KV;
-  R2_BUCKET = env.R2_BUCKET;
-
+async function handleRequest(request) {
   var url = new URL(request.url);
   var path = url.pathname;
 
@@ -145,10 +138,10 @@ async function handleRegister(request) {
   if (password.length < 6)
     return jsonResponse({ error: '密码至少6位' }, 400);
 
-  var existing = await KV.get(kvUserKey(username));
+  var existing = await USERS_KV.get(kvUserKey(username));
   if (existing) return jsonResponse({ error: '用户名已被占用' }, 409);
 
-  var existingEmail = await KV.get(kvEmailKey(email));
+  var existingEmail = await USERS_KV.get(kvEmailKey(email));
   if (existingEmail) return jsonResponse({ error: '该邮箱已被注册' }, 409);
 
   var passwordHash = await hashPassword(password);
@@ -162,11 +155,11 @@ async function handleRegister(request) {
     created_at: new Date().toISOString(),
   };
 
-  await KV.put(kvUserKey(username), JSON.stringify(user));
-  await KV.put(kvEmailKey(email.toLowerCase()), username);
+  await USERS_KV.put(kvUserKey(username), JSON.stringify(user));
+  await USERS_KV.put(kvEmailKey(email.toLowerCase()), username);
 
   var token = makeToken();
-  await KV.put(kvTokenKey(token), username, { expirationTtl: 7 * 24 * 3600 });
+  await USERS_KV.put(kvTokenKey(token), username, { expirationTtl: 7 * 24 * 3600 });
 
   return jsonResponse({ success: true, token: token, user: { username: username, email: email, is_vip: false } });
 }
@@ -178,11 +171,11 @@ async function handleLogin(request) {
 
   var actualUsername = username;
   if (username && username.includes('@')) {
-    actualUsername = await KV.get(kvEmailKey(username.toLowerCase()));
+    actualUsername = await USERS_KV.get(kvEmailKey(username.toLowerCase()));
   }
   if (!actualUsername) return jsonResponse({ error: '用户不存在' }, 401);
 
-  var raw = await KV.get(kvUserKey(actualUsername));
+  var raw = await USERS_KV.get(kvUserKey(actualUsername));
   if (!raw) return jsonResponse({ error: '用户不存在' }, 401);
 
   var user = JSON.parse(raw);
@@ -190,7 +183,7 @@ async function handleLogin(request) {
   if (hash !== user.passwordHash) return jsonResponse({ error: '密码错误' }, 401);
 
   var token = makeToken();
-  await KV.put(kvTokenKey(token), actualUsername, { expirationTtl: 7 * 24 * 3600 });
+  await USERS_KV.put(kvTokenKey(token), actualUsername, { expirationTtl: 7 * 24 * 3600 });
 
   return jsonResponse({
     success: true,
@@ -229,7 +222,7 @@ async function handlePurchase(request, user) {
 
   owned.push(resourceId);
   user.owned_resources = owned;
-  await KV.put(kvUserKey(user.username), JSON.stringify(user));
+  await USERS_KV.put(kvUserKey(user.username), JSON.stringify(user));
 
   return jsonResponse({ success: true, resource: meta });
 }
@@ -251,7 +244,7 @@ async function handleVipActivate(request, user) {
     user.is_vip = true;
   }
 
-  await KV.put(kvUserKey(user.username), JSON.stringify(user));
+  await USERS_KV.put(kvUserKey(user.username), JSON.stringify(user));
   return jsonResponse({ success: true, is_vip: true, vip_expire: user.vip_expire });
 }
 
@@ -295,5 +288,5 @@ async function handleDownload(request, user) {
 
 // Cloudflare Workers fetch handler
 addEventListener('fetch', function(event) {
-  event.respondWith(handleRequest(event.request, event));
+  event.respondWith(handleRequest(event.request));
 });

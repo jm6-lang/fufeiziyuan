@@ -151,26 +151,21 @@ async function renderUserCenter() {
       <h3 style="margin-bottom:16px;font-size:1.1rem">💎 开通会员</h3>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
         <div style="border:2px solid #eee;border-radius:12px;padding:20px;text-align:center;transition:border-color 0.2s"
-             onmouseover="this.style.borderColor='#f39c12'" onmouseout="this.style.borderColor='#eee'">
-          <div style="font-size:0.82rem;color:#888;margin-bottom:6px">月卡</div>
+             onmouseover="this.style.borderColor='#667eea'" onmouseout="this.style.borderColor='#eee'">
+          <div style="font-size:0.82rem;color:#888;margin-bottom:6px">月卡会员</div>
           <div style="font-size:1.8rem;font-weight:700;color:#e84118;margin-bottom:4px">¥9.9</div>
-          <div style="font-size:0.78rem;color:#aaa;margin-bottom:14px">/月</div>
+          <div style="font-size:0.78rem;color:#aaa;margin-bottom:14px">/月 · 不限下载次数</div>
           <button onclick="openVipPay('monthly')" class="btn btn-primary" style="font-size:0.85rem;padding:8px 14px;width:100%">开通</button>
         </div>
-        <div style="border:2px solid #f39c12;border-radius:12px;padding:20px;text-align:center;position:relative">
-          <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#f39c12;color:#fff;font-size:0.72rem;padding:2px 10px;border-radius:10px">推荐</div>
-          <div style="font-size:0.82rem;color:#888;margin-bottom:6px">年卡</div>
-          <div style="font-size:1.8rem;font-weight:700;color:#e84118;margin-bottom:4px">¥59</div>
-          <div style="font-size:0.78rem;color:#aaa;margin-bottom:14px">/年（省¥60）</div>
-          <button onclick="openVipPay('yearly')" class="btn btn-primary" style="font-size:0.85rem;padding:8px 14px;width:100%;background:linear-gradient(135deg,#f39c12,#e67e22)">开通</button>
-        </div>
-        <div style="border:2px solid #e84118;border-radius:12px;padding:20px;text-align:center;grid-column:1/-1;margin-top:2px">
+        <div style="border:2px solid #e84118;border-radius:12px;padding:20px;text-align:center;position:relative">
+          <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#e84118;color:#fff;font-size:0.72rem;padding:2px 10px;border-radius:10px">最划算</div>
           <div style="font-size:0.82rem;color:#888;margin-bottom:6px">终身会员</div>
-          <div style="font-size:2rem;font-weight:700;color:#e84118;margin-bottom:4px">¥199</div>
+          <div style="font-size:2rem;font-weight:700;color:#e84118;margin-bottom:4px">¥59.9</div>
           <div style="font-size:0.78rem;color:#aaa;margin-bottom:14px">一次购买，永久使用</div>
           <button onclick="openVipPay('lifetime')" class="btn btn-primary" style="font-size:0.92rem;padding:10px 20px;background:linear-gradient(135deg,#e84118,#c0392b)">立即开通</button>
         </div>
       </div>
+      <p style="text-align:center;color:#aaa;font-size:0.78rem;margin-top:14px">💡 会员期间所有资源免费下载，单个资源购买仅需 ¥5.9</p>
     </div>
 
     <div class="detail-card" style="margin-top:20px">
@@ -207,8 +202,8 @@ async function loadOwnedResources() {
 // ========== 会员支付弹窗 ==========
 
 function openVipPay(plan) {
-  const prices = { monthly: 9.9, yearly: 59.9, lifetime: 59.9 };
-  const names = { monthly: '月卡会员', yearly: '年卡会员', lifetime: '终身会员' };
+  const prices = { monthly: 9.9, lifetime: 59.9 };
+  const names = { monthly: '月卡会员', lifetime: '终身会员' };
   document.getElementById('payModalTitle').textContent = '开通 ' + names[plan];
   document.getElementById('payModalDesc').textContent = `¥${prices[plan].toFixed(1)}，支付成功即开通 ${names[plan]}`;
   document.getElementById('payModalAmount').textContent = '¥' + prices[plan].toFixed(1);
